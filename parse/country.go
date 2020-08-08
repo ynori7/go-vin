@@ -24,7 +24,7 @@ var countryMatchers = map[string]*regexp.Regexp {
 	"MA": regexp.MustCompile("^D[F-K]"),
 	"ZM": regexp.MustCompile("^D[L-R]"),
 	"ET": regexp.MustCompile("^E[A-E]"),
-	"NZ": regexp.MustCompile("^(E[F-K]|7[A-E])"),
+	"NZ": regexp.MustCompile("(^E[F-K]|^7[A-E])"),
 	"GH": regexp.MustCompile("^F[A-E]"),
 	"NG": regexp.MustCompile("^F[F-K]"),
 	"JP": regexp.MustCompile("^J[A-Z0]"),
@@ -47,7 +47,7 @@ var countryMatchers = map[string]*regexp.Regexp {
 	"VN": regexp.MustCompile("^R[L-R]"),
 	"SA": regexp.MustCompile("^R[S-Z0]"),
 	"GB": regexp.MustCompile("^S[A-M]"),
-	"DE": regexp.MustCompile("^(S[N-T])|(W[A-Z0])"), // East & West Germany
+	"DE": regexp.MustCompile("(^S[N-T])|(^W[A-Z0])"), // East & West Germany
 	"PL": regexp.MustCompile("^S[U-Z]"),
 	"LV": regexp.MustCompile("^S[1-4]"),
 	"CH": regexp.MustCompile("^T[A-H]"),
@@ -67,7 +67,7 @@ var countryMatchers = map[string]*regexp.Regexp {
 	"BG": regexp.MustCompile("^X[A-E]"),
 	"GR": regexp.MustCompile("^X[F-K]"),
 	"NL": regexp.MustCompile("^X[L-R]"),
-	"RU": regexp.MustCompile("^(X[S-W])|(X[3-Z0])"), // Russia & USSR
+	"RU": regexp.MustCompile("(^X[S-W])|(^X[3-Z0])"), // Russia & USSR
 	"LU": regexp.MustCompile("^X[X-Z0-2]"),
 	"BE": regexp.MustCompile("^Y[A-E]"),
 	"FI": regexp.MustCompile("^Y[F-K]"),
@@ -79,7 +79,7 @@ var countryMatchers = map[string]*regexp.Regexp {
 	"IT": regexp.MustCompile("^Z[A-R]"),
 	"SI": regexp.MustCompile("^Z[X-Z0-2]"),
 	"LT": regexp.MustCompile("^Z[3-5]"),
-	"US": regexp.MustCompile("^(1[A-Z0])|(4[A-Z0])|(5[A-Z0])"),
+	"US": regexp.MustCompile("(^1[A-Z0])|(^4[A-Z0])|(^5[A-Z0])"),
 	"CA": regexp.MustCompile("^2[A-Z0]"),
 	"MX": regexp.MustCompile("^3[A-Z0-7]"),
 	"KY": regexp.MustCompile("^3[8-Z0]"),
