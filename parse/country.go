@@ -82,7 +82,7 @@ var countryMatchers = map[string]*regexp.Regexp {
 	"US": regexp.MustCompile("(^1[A-Z0])|(^4[A-Z0])|(^5[A-Z0])"),
 	"CA": regexp.MustCompile("^2[A-Z0]"),
 	"MX": regexp.MustCompile("^3[A-Z0-7]"),
-	"KY": regexp.MustCompile("^3[8-Z0]"),
+	"KY": regexp.MustCompile("^3[8-90]"),
 	"AU": regexp.MustCompile("^6[A-W]"),
 	"AR": regexp.MustCompile("^8[A-E]"),
 	"CL": regexp.MustCompile("^8[F-K]"),
