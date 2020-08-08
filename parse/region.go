@@ -5,14 +5,14 @@ import "regexp"
 type Region string
 
 const (
-	Africa       Region = "AF"
-	Asia                = "AS"
-	Europe              = "EU"
-	NorthAmerica        = "NA"
-	Oceania             = "OC"
-	SouthAmerica        = "SA"
-	Antarctica          = "AN"
-	Unknown             = "UN"
+	Region_Africa       Region = "AF"
+	Region_Asia                = "AS"
+	Region_Europe              = "EU"
+	Region_NorthAmerica        = "NA"
+	Region_Oceania             = "OC"
+	Region_SouthAmerica        = "SA"
+	Region_Antarctica          = "AN"
+	Region_Unknown             = "UN"
 )
 
 func ParseRegion(vin string) Region {
@@ -21,14 +21,14 @@ func ParseRegion(vin string) Region {
 			return region
 		}
 	}
-	return Unknown
+	return Region_Unknown
 }
 
 var regionMatchers = map[Region]*regexp.Regexp{
-	Africa:       regexp.MustCompile("^[A-H].*"),
-	Asia:         regexp.MustCompile("^[J-R].*"),
-	Europe:       regexp.MustCompile("^[S-Z].*"),
-	NorthAmerica: regexp.MustCompile("^[1-5].*"),
-	Oceania:      regexp.MustCompile("^6-7].*"),
-	SouthAmerica: regexp.MustCompile("^[8-9].*"),
+	Region_Africa:       regexp.MustCompile("^[A-H]"),
+	Region_Asia:         regexp.MustCompile("^[J-R]"),
+	Region_Europe:       regexp.MustCompile("^[S-Z]"),
+	Region_NorthAmerica: regexp.MustCompile("^[1-5]"),
+	Region_Oceania:      regexp.MustCompile("^[6-7]"),
+	Region_SouthAmerica: regexp.MustCompile("^[8-9]"),
 }

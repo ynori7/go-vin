@@ -1,13 +1,8 @@
 package govin
 
 import (
-	"errors"
-	"strings"
-
 	"github.com/ynori7/go-vin/parse"
 )
-
-var ErrInvalidVinLength = errors.New("invalid vin length")
 
 type Vin struct {
 	Vin       string
@@ -23,10 +18,11 @@ type VinParts struct {
 	Vis          string // Vehicle Identifier Section
 	ModelYear    string
 	SerialNumber string
+	Checksum     string // Empty if region does not support it (i.e. EU)
 }
 
 func NewVin(v string) (*Vin, error) {
-	v = strings.ToUpper(v) //normalize it
+	v = NormalizeVin(v)
 
 	if err := ValidateVin(v); err != nil {
 		return nil, err
@@ -42,6 +38,12 @@ func NewVin(v string) (*Vin, error) {
 		ModelYear:    string(v[9]),
 	}
 
+	if vinRegion != parse.Region_Europe {
+		// Checksums aren't used in Region_Europe (see ISO 3779 / ISO 3780)
+		vinParts.Checksum = string(v[8])
+		// TODO: validate the checksum
+	}
+
 	vin := &Vin{
 		Vin:       v,
 		ModelYear: parse.ParseYear(v, vinRegion),
@@ -51,14 +53,4 @@ func NewVin(v string) (*Vin, error) {
 	}
 
 	return vin, nil
-}
-
-func ValidateVin(v string) error {
-	if len(v) != 17 {
-		return ErrInvalidVinLength
-	}
-
-	//TODO verify checksum
-
-	return nil
 }
