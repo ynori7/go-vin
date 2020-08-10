@@ -35,9 +35,39 @@ func Test_ParseVin(t *testing.T) {
 				ModelYear: 1996,
 			},
 		},
+		"US VIN with invalid year code": { //zero is not used
+			vin:         "1J4GZB8S10Y103658",
+			expectedErr: nil,
+			expectedResp: &Vin{
+				Vin:       "1J4GZB8S10Y103658",
+				Region:    parse.Region_NorthAmerica,
+				Country:   "US",
+				ModelYear: 0,
+			},
+		},
+		"Random numbers which pass validation": {
+			vin:         "11111111111111111",
+			expectedErr: nil,
+			expectedResp: &Vin{
+				Vin:       "11111111111111111",
+				Region:    parse.Region_NorthAmerica,
+				Country:   "",
+				ModelYear: 2001,
+			},
+		},
 		"Invalid VIN": {
 			vin:          "1J4GZB8S1TY103",
 			expectedErr:  ErrInvalidVinLength,
+			expectedResp: nil,
+		},
+		"Empty VIN": {
+			vin:          "",
+			expectedErr:  ErrInvalidVinLength,
+			expectedResp: nil,
+		},
+		"VIN contains invalid characters": {
+			vin:          "1J4GZB8Q1TY103658",
+			expectedErr:  ErrInvalidCharacters,
 			expectedResp: nil,
 		},
 	}
