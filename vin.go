@@ -49,7 +49,7 @@ func ParseVin(v string) (*Vin, error) {
 
 	vin := &Vin{
 		Vin:       v,
-		ModelYear: parse.ParseYear(v, vinRegion),
+		ModelYear: parse.ParseYear(v),
 		Region:    vinRegion,
 		Country:   parse.ParseCountry(v),
 		VinParts:  vinParts,

@@ -22,7 +22,7 @@ func Test_ParseVin(t *testing.T) {
 				Vin:       "WDBUH87J46X202412",
 				Region:    parse.Region_Europe,
 				Country:   "DE",
-				ModelYear: 0,
+				ModelYear: 2006,
 			},
 		},
 		"Valid US VIN": {

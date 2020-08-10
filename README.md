@@ -34,5 +34,5 @@ Returns (note: presented here with pretty formatting):
 ```
 
 ### TODO
-- The model year is currently only retrieved for North American VINs. 
-    For all others the year will be zero.
+- The model year is currently only reliable for North American VINs. It will still be parsed for others, but
+it's not certain whether they follow any convention or not.

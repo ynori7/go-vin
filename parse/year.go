@@ -4,15 +4,15 @@ import (
 	"time"
 )
 
-// ParseYear accepts a VIN string and a region and attempts to parse the manufacture year
-func ParseYear(vin string, region Region) int {
+// ParseYear accepts a VIN string and attempts to parse the manufacture year
+func ParseYear(vin string) int {
 	mapping, ok := yearMapping[string(vin[9])]
 	if !ok {
 		return 0
 	}
 
-	possibleYears, ok := mapping[region]
-	if !ok {
+	possibleYears, ok := mapping[Region_NorthAmerica]
+	if !ok || len(possibleYears) == 0{
 		return 0
 	}
 
@@ -30,7 +30,8 @@ var getCurrentYear = func() int {
 	return time.Now().Year()
 }
 
-// map of code to possible years
+// map of code to possible years. It is planned to have separate configuration per region, but currently it seems like everyone uses
+// the north american one (if they follow any convention)
 var yearMapping = map[string]map[Region][]int{
 	"A": {
 		Region_NorthAmerica: {1980, 2010},
