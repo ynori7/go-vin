@@ -2,8 +2,8 @@ package parse
 
 import "regexp"
 
+// Region is a two-letter code representing the continent the vehicle was manufactured in
 type Region string
-
 const (
 	Region_Africa       Region = "AF"
 	Region_Asia                = "AS"
@@ -15,6 +15,7 @@ const (
 	Region_Unknown             = "UN"
 )
 
+// ParseRegion accepts a VIN string and returns a region code
 func ParseRegion(vin string) Region {
 	for region, matcher := range regionMatchers {
 		if matcher.MatchString(vin) {

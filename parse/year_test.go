@@ -10,27 +10,33 @@ func Test_ParseYear(t *testing.T) {
 	// given
 	testcases := map[string]struct {
 		vin             string
-		year            string
+		year            int
 		region          Region
-		currentYearFunc func() string
+		currentYearFunc func() int
 	}{
-		"german vin": {
+		"German vin": {
 			vin:             "WDBUH87J46X202412",
-			year:            "",
+			year:            0,
 			region:          Region_Europe,
-			currentYearFunc: func() string { return "2020" },
+			currentYearFunc: func() int { return 2020 },
 		},
 		"US vin": {
 			vin:             "1J4GZB8S1TY103658",
-			year:            "1996",
+			year:            1996,
 			region:          Region_NorthAmerica,
-			currentYearFunc: func() string { return "2020" },
+			currentYearFunc: func() int { return 2020 },
 		},
 		"US vin in the future": {
 			vin:             "1J4GZB8S1TY103658",
-			year:            "2026",
+			year:            2026,
 			region:          Region_NorthAmerica,
-			currentYearFunc: func() string { return "2030" },
+			currentYearFunc: func() int { return 2030 },
+		},
+		"US vin from next year": {
+			vin:             "1J4GZB8S11Y103658",
+			year:            2001,
+			region:          Region_NorthAmerica,
+			currentYearFunc: func() int { return 2020 },
 		},
 	}
 

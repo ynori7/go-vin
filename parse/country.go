@@ -2,6 +2,7 @@ package parse
 
 import "regexp"
 
+// ParseCountry accepts a VIN string and returns an ISO country code representing the country the vehicle was manufactured in
 func ParseCountry(vin string) string {
 	for c, m := range countryMatchers {
 		if m.MatchString(vin) {

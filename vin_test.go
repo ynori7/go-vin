@@ -8,7 +8,7 @@ import (
 	"github.com/ynori7/go-vin/parse"
 )
 
-func Test_NewVin(t *testing.T) {
+func Test_ParseVin(t *testing.T) {
 	// given
 	testcases := map[string]struct {
 		vin          string
@@ -22,7 +22,7 @@ func Test_NewVin(t *testing.T) {
 				Vin:       "WDBUH87J46X202412",
 				Region:    parse.Region_Europe,
 				Country:   "DE",
-				ModelYear: "",
+				ModelYear: 0,
 			},
 		},
 		"Valid US VIN": {
@@ -32,7 +32,7 @@ func Test_NewVin(t *testing.T) {
 				Vin:       "1J4GZB8S1TY103658",
 				Region:    parse.Region_NorthAmerica,
 				Country:   "US",
-				ModelYear: "1996",
+				ModelYear: 1996,
 			},
 		},
 		"Invalid VIN": {
@@ -44,7 +44,7 @@ func Test_NewVin(t *testing.T) {
 
 	for testcase, testdata := range testcases {
 		// when
-		parsedVin, err := NewVin(testdata.vin)
+		parsedVin, err := ParseVin(testdata.vin)
 		if testdata.expectedErr != nil {
 			require.Error(t, err, testcase)
 			assert.EqualError(t, err, testdata.expectedErr.Error(), testcase)

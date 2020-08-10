@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	vin, _ := govin.NewVin("1J4GZB8S1TY103658")
+	vin, _ := govin.ParseVin("1J4GZB8S1TY103658")
 	fmt.Printf("%+v", vin)
 }
 ```
@@ -22,7 +22,7 @@ Returns (note: presented here with pretty formatting):
     Vin:      "1J4GZB8S1TY103658", 
     Region:   "NA", //NorthAmerica 
     Country:  "US", 
-    ModelYear:"1996", 
+    ModelYear: 1996, 
     VinParts: {
         Wmi:         "1J4", 
         Vds:         "GZB8S1", 
@@ -35,4 +35,4 @@ Returns (note: presented here with pretty formatting):
 
 ### TODO
 - The model year is currently only retrieved for North American VINs. 
-    For all others the year will be an empty string.
+    For all others the year will be zero.

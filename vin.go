@@ -4,14 +4,16 @@ import (
 	"github.com/ynori7/go-vin/parse"
 )
 
+// Vin contains human-readable data derived from the VIN as well as the raw vin parts
 type Vin struct {
 	Vin       string
 	Region    parse.Region // The content derived from vin parts
 	Country   string       // The country derived from vin parts
-	ModelYear string       // The actual year, derived from the year field in the vin parts
+	ModelYear int          // The actual year, derived from the year field in the vin parts. Will be zero if it cannot be parsed reliably
 	VinParts  VinParts
 }
 
+// VinParts contains the raw pieces of the VIN. Certain sequences within the ID represent certain things.
 type VinParts struct {
 	Wmi          string // World Manufacturer Identifier
 	Vds          string // Vehicle Descriptor Section
@@ -21,7 +23,8 @@ type VinParts struct {
 	Checksum     string // Empty if region does not support it (i.e. EU)
 }
 
-func NewVin(v string) (*Vin, error) {
+// ParseVin accepts a VIN string and then validates it and returns structured data derived from the VIN or an error if it is invalid
+func ParseVin(v string) (*Vin, error) {
 	v = NormalizeVin(v)
 
 	if err := ValidateVin(v); err != nil {
