@@ -24,11 +24,13 @@ Returns (note: presented here with pretty formatting):
     Country:  "US", 
     ModelYear: 1996, 
     VinParts: {
-        Wmi:         "1J4", 
-        Vds:         "GZB8S1", 
-        Vis:         "TY103658", 
-        ModelYear:   "T", 
-        SerialNumber:"03658",
+        Wmi:           "1J4", 
+        Vds:           "GZB8S1", 
+        Vis:           "TY103658", 
+        ModelYear:     "T", 
+        SerialNumber:  "03658",
+        Checksum:      "1",
+        ChecksumValid: true,
     },
 }
 ```

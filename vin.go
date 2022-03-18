@@ -15,12 +15,13 @@ type Vin struct {
 
 // VinParts contains the raw pieces of the VIN. Certain sequences within the ID represent certain things.
 type VinParts struct {
-	Wmi          string // World Manufacturer Identifier
-	Vds          string // Vehicle Descriptor Section
-	Vis          string // Vehicle Identifier Section
-	ModelYear    string
-	SerialNumber string
-	Checksum     string // Empty if region does not support it (i.e. EU)
+	Wmi           string // World Manufacturer Identifier
+	Vds           string // Vehicle Descriptor Section
+	Vis           string // Vehicle Identifier Section
+	ModelYear     string
+	SerialNumber  string
+	Checksum      string // Empty if region does not support it (i.e. GB)
+	ChecksumValid bool   // True if the checksum is valid
 }
 
 // ParseVin accepts a VIN string and then validates it and returns structured data derived from the VIN or an error if it is invalid
@@ -41,17 +42,19 @@ func ParseVin(v string) (*Vin, error) {
 		ModelYear:    string(v[9]),
 	}
 
-	if vinRegion != parse.Region_Europe {
-		// Checksums aren't used in Region_Europe (see ISO 3779 / ISO 3780)
+	country := parse.ParseCountry(v)
+
+	// Checksums aren't mandatory in Region_Europe (see ISO 3779 / ISO 3780), but are typically used still except in Great Britain
+	if country != "GB" {
 		vinParts.Checksum = string(v[8])
-		// TODO: validate the checksum
+		vinParts.ChecksumValid = HasValidChecksum(v)
 	}
 
 	vin := &Vin{
 		Vin:       v,
 		ModelYear: parse.ParseYear(v),
 		Region:    vinRegion,
-		Country:   parse.ParseCountry(v),
+		Country:   country,
 		VinParts:  vinParts,
 	}
 

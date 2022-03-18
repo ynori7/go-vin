@@ -11,7 +11,7 @@ func Test_ValidateVin(t *testing.T) {
 	testcases := map[string]struct {
 		vin string
 		err error
-	} {
+	}{
 		"valid": {
 			vin: "WDBUH87J46X202412",
 			err: nil,
@@ -44,5 +44,38 @@ func Test_ValidateVin(t *testing.T) {
 
 		// then
 		assert.Equal(t, err, testdata.err, testcase)
+	}
+}
+
+func Test_HasValidChecksum(t *testing.T) {
+	// given
+	testcases := map[string]struct {
+		vin      string
+		expected bool
+	}{
+		"Valid German VIN": {
+			vin:      "WDBUH87J46X202412",
+			expected: true,
+		},
+		"Valid US VIN": {
+			vin:      "1J4GZB8S1TY103658",
+			expected: true,
+		},
+		"Invalid US VIN": {
+			vin:      "1J4GZB8S2TY103658", //2 instead of 1
+			expected: false,
+		},
+		"Invalid length": {
+			vin:      "1J4GZB8S2T",
+			expected: false,
+		},
+	}
+
+	for testcase, testdata := range testcases {
+		// when
+		actual := HasValidChecksum(testdata.vin)
+
+		// then
+		assert.Equal(t, testdata.expected, actual, testcase)
 	}
 }
